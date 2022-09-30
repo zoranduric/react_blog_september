@@ -1,7 +1,11 @@
 import React from 'react';
 
 const Footer = () => {
-  return <div>Footer</div>;
+  return (
+    <footer>
+      <span>Blog made with React & MySQL</span>
+    </footer>
+  );
 };
 
 export default Footer;
