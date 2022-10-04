@@ -9,6 +9,8 @@ const Register = () => {
     password: '',
   });
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
   const handleChange = (event) => {
     setInputs((prev) => ({ ...prev, [event.target.name]: event.target.value }));
     console.log(inputs);
@@ -19,6 +21,7 @@ const Register = () => {
     try {
       console.log(inputs);
       const res = await axios.post('/auth/register', inputs);
+      navigate('/login');
       console.log(res);
     } catch (error) {
       setError(error.response.data);
@@ -52,7 +55,7 @@ const Register = () => {
         <button onClick={handleSubmit} type='submit'>
           Register
         </button>
-        <p>Error message</p>
+        {error && <p>{error}</p>}
         <span>
           Already got account <Link to='/login'>Login</Link>{' '}
         </span>
