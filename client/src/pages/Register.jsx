@@ -21,7 +21,7 @@ const Register = () => {
       const res = await axios.post('/auth/register', inputs);
       console.log(res);
     } catch (error) {
-      setError(error);
+      setError(error.response.data);
     }
   };
 
