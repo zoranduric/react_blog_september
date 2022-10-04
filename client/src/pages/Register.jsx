@@ -8,6 +8,7 @@ const Register = () => {
     email: '',
     password: '',
   });
+  const [error, setError] = useState(null);
   const handleChange = (event) => {
     setInputs((prev) => ({ ...prev, [event.target.name]: event.target.value }));
     console.log(inputs);
@@ -20,7 +21,7 @@ const Register = () => {
       const res = await axios.post('/auth/register', inputs);
       console.log(res);
     } catch (error) {
-      console.log(error.response.data);
+      setError(error);
     }
   };
 
