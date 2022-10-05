@@ -1,17 +1,57 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Login = () => {
+  const [inputs, setInputs] = useState({
+    username: '',
+
+    password: '',
+  });
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
+  const handleChange = (event) => {
+    setInputs((prev) => ({ ...prev, [event.target.name]: event.target.value }));
+    console.log(inputs);
+  };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log('submitting');
+    try {
+      console.log(inputs);
+      const res = await axios.post('/auth/login', inputs);
+      navigate('/');
+      console.log(res);
+    } catch (error) {
+      setError(error.response.data);
+    }
+  };
+
   return (
     <div className='auth'>
       <h1>Login</h1>
       <form>
-        <input type='text' placeholder='username' />
-        <input type='password' placeholder='password' />
-        <button type='submit'>Login</button>
-        <p>Error message</p>
+        <label>uername</label>
+        <input
+          type='text'
+          placeholder='username'
+          name='username'
+          onChange={handleChange}
+        />
+        <label>pass</label>
+        <input
+          type='password'
+          placeholder='password'
+          name='email'
+          onChange={handleChange}
+        />
+        <button onClick={handleSubmit} type='submit'>
+          Login
+        </button>
+        {error && <p>{error}</p>}
         <span>
-          Join us <Link to='/register'>Register</Link>{' '}
+          Already got account <Link to='/login'>Login</Link>{' '}
         </span>
       </form>
     </div>
