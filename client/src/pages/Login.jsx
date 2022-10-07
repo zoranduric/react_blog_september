@@ -54,7 +54,7 @@ const Login = () => {
         </button>
         {error && <p>{error}</p>}
         <span>
-          Already got account <Link to='/login'>Login</Link>{' '}
+          Already got account <Link to='/register'>Login</Link>{' '}
         </span>
       </form>
     </div>
