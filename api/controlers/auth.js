@@ -34,9 +34,18 @@ export const login = (req, res) => {
     if (err) return res.status(500).json(err);
     if (!data.length) return res.status(404).json('User not found!');
 
-    //comapre passwords
-    const correctPassword = data[0].password === req.body.password;
-    if (!correctPassword) return res.status(401).json('Wrong password!');
+    // async await pass check
+    async function PassCheck() {
+      console.log('starting password check');
+      const validPass = await bcrypt.compare(
+        req.body.password,
+        data[0].password
+      );
+      if (!validPass) return res.status(400).json('Invalid password!');
+    }
+
+    // const correctPassword = data[0].password === req.body.password;
+    // if (!correctPassword) return res.status(401).json('Wrong password!');
 
     const token = jwt.sign({ id: data[0].id }, 'jwtkey');
     const { password, ...other } = data[0];
