@@ -1,6 +1,7 @@
 {
   "name": "api",
   "version": "1.0.0",
+  "proxy": "http://localhost:8800/api/",
   "description": "",
   "main": "index.js",
   "type": "module",
