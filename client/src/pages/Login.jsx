@@ -6,17 +6,16 @@ import { AuthContext } from '../context/authContext';
 const Login = () => {
   const [inputs, setInputs] = useState({
     username: '',
-
     password: '',
   });
-  const [error, setError] = useState(null);
-  const navigate = useNavigate();
-  const { login, currentUser } = useContext(AuthContext);
-  console.log(currentUser);
 
-  const handleChange = (event) => {
-    setInputs((prev) => ({ ...prev, [event.target.name]: event.target.value }));
-    console.log(inputs);
+  const { login } = useContext(AuthContext);
+  const [err, setError] = useState(null);
+
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -24,10 +23,10 @@ const Login = () => {
     try {
       console.log(inputs);
       await login(inputs);
-      console.log(currentUser);
+
       navigate('/');
-    } catch (error) {
-      setError(error.response.data);
+    } catch (err) {
+      setError(err.response.data);
     }
   };
 
@@ -35,26 +34,24 @@ const Login = () => {
     <div className='auth'>
       <h1>Login</h1>
       <form>
-        <label>uername</label>
         <input
+          required
           type='text'
           placeholder='username'
           name='username'
           onChange={handleChange}
         />
-        <label>pass</label>
         <input
+          required
           type='password'
           placeholder='password'
-          name='email'
+          name='password'
           onChange={handleChange}
         />
-        <button onClick={handleSubmit} type='submit'>
-          Login
-        </button>
-        {error && <p>{error}</p>}
+        <button onClick={handleSubmit}>Login</button>
+        {err && <p>{err}</p>}
         <span>
-          Join at <Link to='/register'>Register</Link>{' '}
+          Don't you have an account? <Link to='/register'>Register</Link>
         </span>
       </form>
     </div>
