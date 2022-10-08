@@ -9,6 +9,7 @@ import Register from './pages/Register';
 import Single from './pages/Single';
 import Write from './pages/Write';
 import Home from './pages/Home';
+import UserSearch from './pages/UserSearch';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import './style.scss';
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
   {
     path: '/write',
     element: <Write />,
+  },
+  {
+    path: '/usersearch',
+    element: <UserSearch />,
   },
 ]);
 
