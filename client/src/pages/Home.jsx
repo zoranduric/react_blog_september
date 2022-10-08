@@ -1,7 +1,9 @@
-import React from 'react';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../context/authContext';
 
 const Home = () => {
+  const { currentUser } = useContext(AuthContext);
   const posts = [
     {
       id: 1,
@@ -31,6 +33,11 @@ const Home = () => {
 
   return (
     <div className='home'>
+      {currentUser ? (
+        <p>current user is: {currentUser.username}</p>
+      ) : (
+        <p>Not logged in</p>
+      )}
       <div className='posts'>
         {posts.map((post, id) => (
           <div className='post' key={post.id}>
