@@ -4,34 +4,38 @@ import { AuthContext } from '../context/authContext';
 import Logo from '../images/logo.png';
 
 const Navbar = () => {
-  const { currnetUser, logout } = useContext(AuthContext);
+  const { currentUser, logout } = useContext(AuthContext);
   return (
     <div className='navbar'>
       <div className='container'>
         <div className='logo'>
-          <img src={Logo} alt='blog logo' />
+          <Link to='/'>
+            <img src={Logo} alt='blog logo' />
+          </Link>
         </div>
         <div className='links'>
-          <Link className='Link' to='/?cat=art'>
+          <Link className='Link' to='/?category=art'>
             <h6>Art</h6>
           </Link>
-          <Link className='Link' to='/?cat=art'>
+          <Link className='Link' to='/?category=animals'>
             <h6>Animals</h6>
           </Link>
-          <Link className='Link' to='/?cat=art'>
+          <Link className='Link' to='/?category=food'>
             <h6>Food</h6>
           </Link>
-          <Link className='Link' to='/?cat=art'>
+          <Link className='Link' to='/?category=cinema'>
             <h6>Cinema</h6>
           </Link>
-          <span>{currnetUser?.username}</span>
-          {currnetUser ? (
+          <span>{currentUser?.username}</span>
+          {currentUser ? (
             <span onClick={logout}>Logout</span>
           ) : (
-            <Link className='Link' to='/login' />
+            <Link className='link' to='/login'>
+              Login
+            </Link>
           )}
           <span className='write'>
-            <Link className='Link' to='/write'>
+            <Link className='link' to='/write'>
               Write
             </Link>
           </span>
