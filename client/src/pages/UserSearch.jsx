@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 const UserSearch = () => {
   const [username, setUsername] = useState('');
-  const [error, setError] = useState(null);
+
   const [user, setUser] = useState(null);
 
   const handleChange = (event) => {
@@ -14,6 +14,7 @@ const UserSearch = () => {
   };
 
   const handleSubmit = async (event) => {
+    setUser('test');
     event.preventDefault();
     console.log('submitting search request');
     console.log(username);
