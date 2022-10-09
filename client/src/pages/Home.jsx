@@ -29,13 +29,13 @@ const Home = () => {
         <p>Not logged in</p>
       )}
       <div className='posts'>
-        {posts.map((post, id) => (
+        {posts.map((post) => (
           <div className='post' key={post.id}>
             <div className='img'>
               <img src={post.img} alt='' />
             </div>
             <div className='content'>
-              <Link className='Link' to={`/post/${id}`}>
+              <Link className='Link' to={`/post/${post.id}`}>
                 <h1>{post.title}</h1>
               </Link>
               <p> {post.desc} </p>
