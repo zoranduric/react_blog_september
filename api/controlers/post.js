@@ -2,11 +2,11 @@ import { db } from '../db.js';
 import jwt from 'jsonwebtoken';
 
 export const getPosts = (req, res) => {
-  const q = req.query.cat
-    ? 'SELECT * FROM posts WHERE cat=?'
+  const q = req.query.category
+    ? 'SELECT * FROM posts WHERE category=?'
     : 'SELECT * FROM posts';
 
-  db.query(q, [req.query.cat], (err, data) => {
+  db.query(q, [req.query.category], (err, data) => {
     if (err) return res.send(err);
     return res.status(200).json(data);
   });

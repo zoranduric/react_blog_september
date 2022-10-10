@@ -47,7 +47,8 @@ const Single = () => {
           <img src={post.userImg} alt='' />
           <div className='info'>
             <span>{post.username} </span>
-            <p>Posted {moment(post.date).fromNow} </p>
+
+            <p>Posted: {moment(post.date).fromNow()} </p>
           </div>
           {currentUser?.username === post.username && (
             <div className='edit'>
@@ -61,11 +62,9 @@ const Single = () => {
           )}
         </div>
         <h3>{post.title}</h3>
-        <p>
-          <p>{post.content}</p>
-        </p>
+        <p>{post.content}</p>
       </div>
-      <Menu />
+      <Menu category={post.category} />
     </div>
   );
 };

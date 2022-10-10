@@ -12,7 +12,7 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`/posts${category}`);
+        const res = await axios.get(`/posts/${category}`);
         setPosts(res.data);
       } catch (error) {
         console.log(error);
@@ -39,7 +39,9 @@ const Home = () => {
                 <h1>{post.title}</h1>
               </Link>
               <p> {post.desc} </p>
-              <button>Read more</button>
+              <Link to={`/post/${post.id}`}>
+                <button>Read more</button>
+              </Link>
             </div>
           </div>
         ))}
