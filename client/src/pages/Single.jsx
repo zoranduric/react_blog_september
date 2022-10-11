@@ -68,5 +68,4 @@ const Single = () => {
     </div>
   );
 };
-// 39
 export default Single;

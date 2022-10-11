@@ -2,14 +2,17 @@ import axios from 'axios';
 import { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import moment from 'moment';
 
 const Write = () => {
   const state = useLocation().state;
-  const [value, setValue] = useState(state?.title || '');
-  const [title, setTitle] = useState(state?.content || '');
+  const [value, setValue] = useState(state?.content || '');
+  const [title, setTitle] = useState(state?.title || '');
   const [image, setImage] = useState(null);
   const [category, setCategory] = useState(state?.category || '');
+
+  const navigate = useNavigate();
 
   const upload = async (event) => {
     try {
@@ -17,7 +20,6 @@ const Write = () => {
       formData.append('image', image);
       const res = await axios.post('/upload', formData);
       return res.data;
-      console.log(res.data);
     } catch (error) {
       console.log(error);
     }
@@ -25,8 +27,23 @@ const Write = () => {
 
   const handleSumbit = async (event) => {
     event.preventDefault();
-    const imgUrl = upload();
+    const imgUrl = await upload();
     try {
+      state
+        ? await axios.put(`/posts/${state.id}`, {
+            title,
+            content: value,
+            category,
+            image: image ? imgUrl : '',
+          })
+        : await axios.post(`/posts/`, {
+            title,
+            content: value,
+            category,
+            image: image ? imgUrl : '',
+            date: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'),
+          });
+      navigate('/');
     } catch (error) {
       console.log(error);
     }
