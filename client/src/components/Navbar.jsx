@@ -20,12 +20,7 @@ const Navbar = () => {
           <Link className='Link' to='/?category=animals'>
             <h6>Animals</h6>
           </Link>
-          <Link className='Link' to='/?category=food'>
-            <h6>Food</h6>
-          </Link>
-          <Link className='Link' to='/?category=cinema'>
-            <h6>Cinema</h6>
-          </Link>
+
           <span>{currentUser?.username}</span>
           {currentUser ? (
             <span onClick={logout}>Logout</span>
