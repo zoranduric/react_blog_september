@@ -42,7 +42,7 @@ const Single = () => {
   return (
     <div className='single'>
       <div className='content'>
-        <img src={post?.image} alt='' />
+        <img src={`../upload/${post?.image}`} alt='' />
         <div className='user'>
           <img src={post.userImg} alt='' />
           <div className='info'>
