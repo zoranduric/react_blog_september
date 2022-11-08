@@ -15,6 +15,7 @@ const storage = multer.diskStorage({
     cb(null, '../client/public/upload');
   },
   filename: function (req, file, cb) {
+    console.log('1');
     cb(null, Date.now() + file.originalname);
   },
 });
@@ -22,7 +23,9 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 app.post('/api/upload', upload.single('file'), function (req, res) {
+  console.log('2');
   const file = req.file;
+  console.log(file.filename);
   res.status(200).json(file.filename);
 });
 

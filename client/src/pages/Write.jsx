@@ -9,46 +9,47 @@ const Write = () => {
   const state = useLocation().state;
   const [value, setValue] = useState(state?.content || '');
   const [title, setTitle] = useState(state?.title || '');
-  const [image, setImage] = useState(null);
+  const [file, setFile] = useState(null);
   const [category, setCategory] = useState(state?.category || '');
 
   const navigate = useNavigate();
 
-  const upload = async (event) => {
+  const upload = async () => {
     try {
       const formData = new FormData();
-      formData.append('image', image);
+      formData.append('file', file);
+      console.log(formData);
+
       const res = await axios.post('/upload', formData);
       return res.data;
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.log(err);
     }
   };
-
-  const handleSumbit = async (event) => {
+  const handleClick = async (event) => {
     event.preventDefault();
     const imgUrl = await upload();
+
     try {
       state
         ? await axios.put(`/posts/${state.id}`, {
             title,
             content: value,
             category,
-            image: image ? imgUrl : '',
+            image: file ? imgUrl : '',
           })
         : await axios.post(`/posts/`, {
             title,
             content: value,
             category,
-            image: image ? imgUrl : '',
+            image: file ? imgUrl : '',
             date: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'),
           });
       navigate('/');
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.log(err);
     }
   };
-
   return (
     <div className='add'>
       <div className='content'>
@@ -64,7 +65,7 @@ const Write = () => {
       </div>
       <div className='menu'>
         <div className='item'>
-          <h1 onClick={handleSumbit}>Publish</h1>
+          <h1>Publish</h1>
           <span>
             <b> Status: </b>Draft
           </span>
@@ -72,15 +73,15 @@ const Write = () => {
             <b> Visability: </b>Public
           </span>
           <input
-            className='file'
             type='file'
             id='file'
-            onChange={(event) => setImage(event.target.files[0])}
+            name=''
+            onChange={(event) => setFile(event.target.files[0])}
           />
           <label htmlFor='file'></label>
           <div className='buttons'>
             <button>Save as draft</button>
-            <button onClick={handleSumbit}>Update</button>
+            <button onClick={handleClick}>Publish</button>
           </div>
         </div>
         <div className='item'>
