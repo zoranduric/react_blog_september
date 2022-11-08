@@ -39,8 +39,10 @@ export const addPost = (req, res) => {
       req.body.date,
       userInfo.id,
     ];
+    console.log(req.body.image);
 
     db.query(q, [values], (err, data) => {
+      console.log(data);
       if (err) return res.status(500).json(err);
       return res.json('Post has been created.');
     });
@@ -77,7 +79,7 @@ export const updatePost = (req, res) => {
       req.body.image,
       req.body.category,
     ];
-
+    console.log(req.body.image);
     db.query(q, [...values, postId, userInfo.id], (err, data) => {
       if (err) return res.status(500).json(err);
       return res.json('Post has been updated.');
